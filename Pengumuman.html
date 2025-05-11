@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hasil Pengumuman Kelulusan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Loading -->
+<div id="loading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Sedang mengambil data kelulusan...</p>
+</div>
+
+<div id="result" class="result">
+  ❌<span>TIDAK LULUS</span>
+</div>
+
+  <div class="container">
+    <img src="img/1.png" alt="Logo Sekolah" class="logo" />
+    <h1>PENGUMUMAN KELULUSAN</h1>
+    <h2>UPTD SD NEGERI 3 SUMBERHADI</h2>
+    <p class="sub">ASSESMEN SUMATIF AKHIR SEKOLAH TAHUN PELAJARAN 2024/2025</p>
+
+    <div class="hasil" id="hasil"></div>
+
+    <p class="note" id="note"></p>
+  </div>
+  <script>
+  window.onload = function () {
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+  },2000)
+    document.getElementById("hasilPengumuman").style.display = "block";
+   hasil.classList.add("show");
+    },10; // delay kecil agar transisi berjalan
+
+
+  </script>
+
+
+  <script>
+    const dataSiswa = {
+      alya: { nisn: "012102101", status: "Lulus" },
+      budi: { nisn: "012102102", status: "Lulus" },
+      citra: { nisn: "012102103", status: "Lulus" },
+      deni: { nisn: "012102104", status: "Tidak Lulus" },
+      eka: { nisn: "012102105", status: "Lulus" },
+      fajar: { nisn: "012102106", status: "Lulus" },
+      gita: { nisn: "012102107", status: "Tidak Lulus" },
+      hadi: { nisn: "012102108", status: "Lulus" },
+      indah: { nisn: "012102109", status: "Lulus" },
+      joko: { nisn: "012102110", status: "Tidak Lulus" },
+      kiki: { nisn: "012102111", status: "Lulus" },
+      lina: { nisn: "012102112", status: "Lulus" },
+      mira: { nisn: "012102113", status: "Lulus" },
+      nina: { nisn: "012102114", status: "Tidak Lulus" },
+      omar: { nisn: "012102201", status: "Tidak Lulus" },
+      putri: { nisn: "012102115", status: "Lulus" },
+      rian: { nisn: "012102116", status: "Lulus" }
+    };
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const nama = urlParams.get("nama");
+
+
+    const hasilEl = document.getElementById("hasil");
+    const noteEl = document.getElementById("note");
+
+    if (nama && dataSiswa[nama.toLowerCase()]) {
+      const siswa = dataSiswa[nama.toLowerCase()];
+      hasilEl.innerHTML = `
+        <div class="info">
+          <p>${nama.charAt(0).toUpperCase() + nama.slice(1)}</p>
+          <p>${siswa.nisn}</p>
+          <p class="${siswa.status === 'Lulus' ? 'lulus' : 'tidak-lulus'}">
+            ${siswa.status === 'Lulus' ? '✅ LULUS' : '❌ TIDAK LULUS'}
+          </p>
+        </div>
+      `;
+
+      if (siswa.status === "Lulus") {
+        noteEl.textContent = "Selamat atas kelulusan Anda. Silakan cek jadwal pengambilan ijazah di sekolah.";
+      } else {
+        noteEl.textContent = "Silahkan Menemui Wali Kelas jika anda dinyatakan TIDAK LULUS!!! .";
+      }
+    } else {
+      hasilEl.innerHTML = `<p class="tidak-lulus">❌ Data tidak ditemukan.</p>`;
+      noteEl.textContent = "";
+    }
+  </script>
+    <!-- Footer -->
+  <footer style="background-color: #1e3a8a; color: #fff; text-align: center; padding: 15px; margin-top: 30px;">
+    <p>&copy; 2025 UPTD SD NEGERI 3 SUMBERHADI.</p>
+  </footer>
+
+</body>
+</html>

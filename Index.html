@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Pengumuman Kelulusan</title>
+  <link rel="stylesheet" href="stl.css">
+</head>
+<body>
+
+ <div class="container">
+    <img src="img/1.png" alt="Logo Sekolah" class="logo" />
+    <h1>PENGUMUMAN KELULUSAN</h1>
+    <h2>UPTD SD NEGERI 3 SUMBERHADI</h2>
+    <p class="sub">ASSESMEN SUMATIF AKHIR SEKOLAH TAHUN PELAJARAN 2024/2025</p>
+    <div class="hasil" id="hasil"></div>
+
+    <p class="note" id="note"></p>
+
+  <div class="timer" id="timer">
+    <div class="countdown">
+      <div class="time-box">
+        <span id="days">00</span>
+        <div class="label">Hari</div>
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        <div class="label">Jam</div>
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <div class="label">Menit</div>
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <div class="label">Detik</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="login" id="login" style="display: none;">
+    <h2>Login Siswa</h2>
+    <input type="text" id="namaSiswa" placeholder="Masukkan Nama Siswa" />
+    <button onclick="submitLogin()">Masuk</button>
+  </div>
+
+  <div class="daftar" id="daftar" style="display: none;">
+    <h2>Selamat Datang</h2>
+    <p id="welcomeText"></p>
+  </div>
+
+  <script>
+    const countdownDate = new Date("2025-05-12T00:18:00").getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = String(days).padStart(2, '0');
+      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+
+      if (distance < 0) {
+        clearInterval(timerInterval);
+        document.getElementById("timer").style.display = "none";
+        document.getElementById("login").style.display = "flex";
+      }
+    };
+
+    const timerInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+let clickCount = 0; // Variabel untuk menghitung berapa kali tombol diklik
+
+ function submitLogin() {
+  const nama = document.getElementById("namaSiswa").value.trim();
+  const siswaTerdaftar = [
+    "Alya", "Budi", "Citra", "Deni", "Eka", "Fajar", "Gita", "Hadi", "Indah",
+    "Joko", "Kiki", "Lina", "Mira", "Nina", "Omar", "Putri", "Rian"
+  ];
+
+
+  if (siswaTerdaftar.includes(nama)) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("daftar").style.display = "block";
+    document.getElementById("welcomeText").textContent = `Halo, ${nama}!`;
+    
+     document.getElementById("login").style.display = "none";
+
+      alert(`Selamat datang, ${nama}!`);
+      window.onload = function () {
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("hasilPengumuman").style.display = "block";
+    document.title = "Hasil Pengumuman Kelulusan"; // <--- Ubah judul tab
+    document.getElementById('result').style.display = 'block';
+}, 8000);
+};
+    setTimeout(() => {
+      const encodedNama = encodeURIComponent(nama.toLowerCase());
+      window.open(`Pengumuman.html?nama=${encodedNama}`, "_blank");
+    }, 2000);
+  } else {
+    alert("Nama tidak ditemukan. Hanya siswa yang terdaftar yang bisa login.");
+  }
+}
+  </script>
+
+  <!-- Footer -->
+  <footer style="background-color: #1e3a8a; color: #fff; text-align: center; padding: 15px; margin-top: 30px;">
+    <p>&copy; 2025 UPTD SD NEGERI 3 SUMBERHADI.</p>
+  </footer>
+
+</body>
+</html>
